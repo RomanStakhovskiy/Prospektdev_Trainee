@@ -1,4 +1,4 @@
-package com.prospektdev.trainee_stakhovskiy;
+package com.prospektdev.trainee_stakhovskiy.data;
 
 import android.content.Context;
 

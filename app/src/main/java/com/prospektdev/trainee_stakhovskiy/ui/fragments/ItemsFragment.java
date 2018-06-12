@@ -1,7 +1,5 @@
-package com.prospektdev.trainee_stakhovskiy;
+package com.prospektdev.trainee_stakhovskiy.ui.fragments;
 
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -11,12 +9,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
+
+import com.prospektdev.trainee_stakhovskiy.data.Item;
+import com.prospektdev.trainee_stakhovskiy.data.ItemLab;
+import com.prospektdev.trainee_stakhovskiy.R;
 
 import java.util.List;
 
-public class ItemListFragment extends Fragment {
+public class ItemsFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private Adapter adapter;

@@ -1,4 +1,4 @@
-package com.prospektdev.trainee_stakhovskiy;
+package com.prospektdev.trainee_stakhovskiy.ui.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,7 +10,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class ItemFragment extends Fragment {
+import com.prospektdev.trainee_stakhovskiy.data.Item;
+import com.prospektdev.trainee_stakhovskiy.R;
+
+public class ItemDetailsFragment extends Fragment {
 
     private Item item;
     private Button shareBtn;
