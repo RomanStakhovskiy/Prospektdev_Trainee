@@ -5,23 +5,16 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 import com.prospektdev.trainee_stakhovskiy.api.modules.v1.V1;
-import com.prospektdev.trainee_stakhovskiy.utils.thread.ThreadUtils;
-
-import java.util.concurrent.ExecutorService;
 
 public class NetworkModule {
 
     private static final NetworkModule INSTANCE = new NetworkModule();
-
-    public static final ExecutorService NETWORK_EXECUTOR = ThreadUtils.newExecutor(2, "NetworkExecutor");
-
     private V1 v1;
 
     private static final String API_ENDPOINT = "https://dog.ceo/api/breeds/";
+    private static final String DEFAULT_NETWORK_ERROR_MESSAGE = "Sorry, something went wrong.";
 
-    public static final String DEFAULT_NETWORK_ERROR_MESSAGE = "Sorry, something went wrong.";
-
-    private NetworkModule() throws IllegalStateException {
+    private NetworkModule() {
         v1 = new V1(API_ENDPOINT);
     }
 
@@ -29,7 +22,7 @@ public class NetworkModule {
         return INSTANCE;
     }
 
-    public static API v1() throws IllegalStateException {
+    public static API v1() {
         return get().v1;
     }
 

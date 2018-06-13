@@ -12,5 +12,4 @@ public interface IDogsModule {
 
     @GET("image/random/{count}")
     Call<RDog> getRandomSet(@Path("count") int count);
-
 }

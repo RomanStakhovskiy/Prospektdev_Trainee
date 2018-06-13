@@ -1,9 +1,12 @@
 package com.prospektdev.trainee_stakhovskiy.db.entities;
 
-public class LDog {
+import java.io.Serializable;
+
+public class LDog implements Serializable{
 
     private long id;
     private String url;
+    private String title;
 
     public LDog() {
     }
@@ -26,5 +29,13 @@ public class LDog {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

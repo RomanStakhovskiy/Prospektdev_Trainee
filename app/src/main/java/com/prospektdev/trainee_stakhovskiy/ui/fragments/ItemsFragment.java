@@ -2,82 +2,69 @@ package com.prospektdev.trainee_stakhovskiy.ui.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
+import android.widget.Toast;
 
-import com.prospektdev.trainee_stakhovskiy.data.Item;
-import com.prospektdev.trainee_stakhovskiy.data.ItemLab;
+import com.prospektdev.trainee_stakhovskiy.api.Callback;
+import com.prospektdev.trainee_stakhovskiy.api.NetworkModule;
 import com.prospektdev.trainee_stakhovskiy.R;
+import com.prospektdev.trainee_stakhovskiy.db.entities.LDog;
+import com.prospektdev.trainee_stakhovskiy.ui.adapters.DogsAdapter;
 
 import java.util.List;
 
 public class ItemsFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private Item item;
-    private Adapter adapter;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_item_rv_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_items, container, false);
         recyclerView = view.findViewById(R.id.item_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        updateUI();
         return view;
     }
 
-    private void updateUI() {
-        ItemLab itemLab = ItemLab.get(getActivity());
-        List<Item> items = itemLab.getItems();
-        adapter = new Adapter(items);
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        if (NetworkModule.get().isConnected(getActivity()))
+            loadRemoteData();
+        else
+            loadLocalData();
+    }
+
+    private void loadRemoteData() {
+        NetworkModule.v1().dogs().getRandomSet(new Callback<List<LDog>>() {
+            @Override
+            public void success(List<LDog> dogs) {
+                fillData(dogs);
+            }
+
+            @Override
+            public void failure(Throwable error) {
+                Toast.makeText(getActivity(), NetworkModule.get().parseError(error),
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void loadLocalData() {
+
+    }
+
+    private void fillData(List<LDog> dogs) {
+        DogsAdapter adapter = new DogsAdapter(getActivity(), dogs);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
-    }
-
-    private class Holder extends RecyclerView.ViewHolder {
-        private TextView tvTitle;
-
-        public Holder(LayoutInflater inflater, ViewGroup parent) {
-            super(inflater.inflate(R.layout.list_item, parent, false));
-            tvTitle = itemView.findViewById(R.id.rv_item_tv);
-        }
-
-        public void bind(Item mItem) {
-            item = mItem;
-            tvTitle.setText(mItem.getTitle());
-        }
-    }
-
-    private class Adapter extends RecyclerView.Adapter<Holder> {
-        private List<Item> items;
-        private Adapter(List<Item> itemList) {
-            items = itemList;
-        }
-
-        @NonNull
-        @Override
-        public Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
-            return new Holder(layoutInflater, parent);
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull Holder holder, int position) {
-            item = items.get(position);
-            holder.bind(item);
-
-        }
-
-        @Override
-        public int getItemCount() {
-            return items.size();
-        }
     }
 }

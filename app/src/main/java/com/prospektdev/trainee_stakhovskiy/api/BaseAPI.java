@@ -13,17 +13,10 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-/**
- * Base API implementation
- */
+
 public abstract class BaseAPI implements API {
 
-    private static final long CONNECT_TIMEOUT = 15;
-    private static final long WRITE_TIMEOUT = 30;
-    private static final long READ_TIMEOUT = 15;
-
     private Retrofit restAdapter;
-
     private HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
 
     public BaseAPI(@NotNull String baseUrl) {
@@ -37,9 +30,6 @@ public abstract class BaseAPI implements API {
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         OkHttpClient baseRequestClient = new OkHttpClient().newBuilder()
-                .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
-                .writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
-                .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
                 .addInterceptor(loggingInterceptor)
                 .build();
 
@@ -56,9 +46,4 @@ public abstract class BaseAPI implements API {
     }
 
     protected abstract ModuleDogs generateDogs(Retrofit restAdapter);
-
-    @Override
-    public ModuleDogs dogs() {
-        throw new UnsupportedOperationException();
-    }
 }

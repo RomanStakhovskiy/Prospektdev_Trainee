@@ -2,7 +2,6 @@ package com.prospektdev.trainee_stakhovskiy.api.modules.v1;
 
 import com.prospektdev.trainee_stakhovskiy.api.Callback;
 import com.prospektdev.trainee_stakhovskiy.api.dto.RDog;
-import com.prospektdev.trainee_stakhovskiy.api.modules.AbstractModule;
 import com.prospektdev.trainee_stakhovskiy.db.entities.LDog;
 
 import org.jetbrains.annotations.NotNull;
@@ -14,12 +13,14 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class DogsModuleV1 extends AbstractModule<IDogsModule> implements ModuleDogs {
+public class DogsModuleV1 implements ModuleDogs {
 
-    private final static int DOGS_COUNT = 30;
+    private final static int DOGS_COUNT = 45;
+
+    private IDogsModule module;
 
     DogsModuleV1(IDogsModule module) {
-        super(module);
+        this.module = module;
     }
 
     @Override
