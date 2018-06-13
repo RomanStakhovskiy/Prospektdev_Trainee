@@ -20,6 +20,7 @@ import java.util.List;
 public class ItemsFragment extends Fragment {
 
     private RecyclerView recyclerView;
+    private Item item;
     private Adapter adapter;
 
     @Override
@@ -41,26 +42,23 @@ public class ItemsFragment extends Fragment {
     }
 
     private class Holder extends RecyclerView.ViewHolder {
-        private TextView titleTextView;
-        private Item item;
-        private Button button;
+        private TextView tvTitle;
 
         public Holder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.list_item, parent, false));
-            titleTextView = itemView.findViewById(R.id.rv_item_tv);
-            button = itemView.findViewById(R.id.share_rv_imagebtn);
+            tvTitle = itemView.findViewById(R.id.rv_item_tv);
         }
 
         public void bind(Item mItem) {
             item = mItem;
-            titleTextView.setText(mItem.getTitle());
+            tvTitle.setText(mItem.getTitle());
         }
     }
 
     private class Adapter extends RecyclerView.Adapter<Holder> {
         private List<Item> items;
-        public Adapter(List<Item> mItems) {
-            items = mItems;
+        private Adapter(List<Item> itemList) {
+            items = itemList;
         }
 
         @NonNull
@@ -72,7 +70,7 @@ public class ItemsFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull Holder holder, int position) {
-            Item item = items.get(position);
+            item = items.get(position);
             holder.bind(item);
 
         }

@@ -30,6 +30,7 @@ public class ItemLab {
     public List<Item> getItems() {
         return items;
     }
+
     public Item getItem(UUID id) {
         for (Item item : items) {
             if (item.getId().equals(id)) {

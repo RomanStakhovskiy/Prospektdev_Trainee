@@ -9,4 +9,5 @@ public class ItemsActivity extends SingleFragmentActivity {
     protected Fragment createFragment() {
         return new ItemsFragment();
     }
+
 }

@@ -30,10 +30,10 @@ public class ItemDetailsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_item, container, false);
+        View v = inflater.inflate(R.layout.fragment_item_details, container, false);
 
         shareBtn = v.findViewById(R.id.share_btn);
-        itemText = v.findViewById(R.id.item_text);
+        itemText = v.findViewById(R.id.text_details);
         tv = v.findViewById(R.id.item_tv);
         iv = v.findViewById(R.id.iv_item);
 
