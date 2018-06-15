@@ -10,7 +10,7 @@ public class ShareUtils {
 
     public static Intent createSharingIntent(String url) {
         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-        sharingIntent.setType("text/plain");
+        sharingIntent.setType("text/plain/image");
         sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Image of Dog");
         sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, url);
         return sharingIntent;
