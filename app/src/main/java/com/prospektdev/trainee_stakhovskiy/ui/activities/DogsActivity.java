@@ -7,14 +7,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.prospektdev.trainee_stakhovskiy.R;
-import com.prospektdev.trainee_stakhovskiy.db.AppDatabase;
-import com.prospektdev.trainee_stakhovskiy.ui.fragments.ItemsFragment;
+import com.prospektdev.trainee_stakhovskiy.ui.fragments.DogsFragment;
 
-public class ItemsActivity extends SingleFragmentActivity implements SearchView.OnQueryTextListener {
+public class DogsActivity extends SingleFragmentActivity implements SearchView.OnQueryTextListener {
 
     @Override
     protected Fragment createFragment(Bundle bundle) {
-        return new ItemsFragment();
+        return new DogsFragment();
     }
 
     @Override
@@ -31,7 +30,7 @@ public class ItemsActivity extends SingleFragmentActivity implements SearchView.
     @Override
     public boolean onQueryTextChange(String query) {
         if (fragment != null)
-            ((ItemsFragment) fragment).getDogsAdapter().getFilter().filter(query);
+            ((DogsFragment) fragment).getDogsAdapter().getFilter().filter(query);
         return true;
     }
 

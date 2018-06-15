@@ -22,7 +22,7 @@ import com.prospektdev.trainee_stakhovskiy.utils.ThreadUtils;
 
 import java.util.List;
 
-public class ItemsFragment extends Fragment {
+public class DogsFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private DogsAdapter adapter;

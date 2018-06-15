@@ -6,15 +6,13 @@ import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 
 import com.prospektdev.trainee_stakhovskiy.db.entities.LDog;
-import com.prospektdev.trainee_stakhovskiy.ui.adapters.DogsAdapter;
-import com.prospektdev.trainee_stakhovskiy.ui.fragments.ItemDetailsFragment;
+import com.prospektdev.trainee_stakhovskiy.ui.fragments.DogDetailsFragment;
 
-import java.io.Serializable;
 import java.util.Objects;
 
-import static com.prospektdev.trainee_stakhovskiy.ui.fragments.ItemDetailsFragment.EXTRA_DOG;
+import static com.prospektdev.trainee_stakhovskiy.ui.fragments.DogDetailsFragment.EXTRA_DOG;
 
-public class ItemDetailsActivity extends SingleFragmentActivity {
+public class DogDetailsActivity extends SingleFragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +33,9 @@ public class ItemDetailsActivity extends SingleFragmentActivity {
 
     @Override
     protected Fragment createFragment(Bundle bundle) {
-        ItemDetailsFragment itemDetailsFragment = new ItemDetailsFragment();
-        itemDetailsFragment.setArguments(bundle);
-        return itemDetailsFragment;
+        DogDetailsFragment dogDetailsFragment = new DogDetailsFragment();
+        dogDetailsFragment.setArguments(bundle);
+        return dogDetailsFragment;
     }
 
     @Override

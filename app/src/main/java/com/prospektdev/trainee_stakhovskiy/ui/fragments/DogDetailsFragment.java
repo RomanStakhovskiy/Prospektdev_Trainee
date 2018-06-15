@@ -1,14 +1,11 @@
 package com.prospektdev.trainee_stakhovskiy.ui.fragments;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,12 +21,11 @@ import com.prospektdev.trainee_stakhovskiy.utils.GlideApp;
 import com.prospektdev.trainee_stakhovskiy.utils.ShareUtils;
 
 import java.io.Serializable;
-import java.util.Objects;
 import java.util.Random;
 
-public class ItemDetailsFragment extends Fragment {
+public class DogDetailsFragment extends Fragment {
 
-    public static final String EXTRA_DOG = "com.prospektdev.trainee_stakhovskiy.ui.fragments.ItemDetailsFragment";
+    public static final String EXTRA_DOG = "com.prospektdev.trainee_stakhovskiy.ui.fragments.DogDetailsFragment";
 
     private static final int MAX_RANDOM_PRICE_NUMB = 5000;
     private static final int MIN_RANDOM_PRICE_NUMB = 200;
