@@ -1,12 +1,17 @@
 package com.prospektdev.trainee_stakhovskiy.db.entities;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+
 import java.io.Serializable;
+import java.util.Objects;
 
-public class LDog implements Serializable{
+@Entity(tableName = "dogs")
+public class LDog implements Serializable {
 
+    @PrimaryKey(autoGenerate = true)
     private long id;
     private String url;
-    private String title;
 
     public LDog() {
     }
@@ -32,10 +37,26 @@ public class LDog implements Serializable{
     }
 
     public String getTitle() {
-        return title;
+        String title = "Empty Dog";
+        try {
+            String[] urlParts = url.split("/");
+            title = urlParts[urlParts.length - 2];
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return title.substring(0, 1).toUpperCase() + title.substring(1);
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        LDog dog = (LDog) o;
+        return Objects.equals(url, dog.url);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(url);
     }
 }
