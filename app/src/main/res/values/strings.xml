@@ -1,3 +1,13 @@
 <resources>
-    <string name="app_name">Trainee</string>
+    <string name="app_name">Dogs Hunter</string>
+    <string name="price">Price: $</string>
+    <string name="phone_number">+380</string>
+    <string name="image_with_dog">Image with dog</string>
+    <string name="title">Title</string>
+    <string name="share_via">Share via</string>
+    <string name="sv_search">Search</string>
+
+    <string name="lorem_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
+    <string name="call">Call</string>
+    <string name="no_dogs_found">No Dogs Found</string>
 </resources>
