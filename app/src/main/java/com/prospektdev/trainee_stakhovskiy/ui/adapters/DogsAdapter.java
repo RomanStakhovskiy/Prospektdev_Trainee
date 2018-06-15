@@ -7,27 +7,34 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.prospektdev.trainee_stakhovskiy.R;
 import com.prospektdev.trainee_stakhovskiy.db.entities.LDog;
-import com.prospektdev.trainee_stakhovskiy.ui.activities.ItemDetailsActivity;
-import com.prospektdev.trainee_stakhovskiy.ui.fragments.ItemDetailsFragment;
+import com.prospektdev.trainee_stakhovskiy.ui.activities.DogDetailsActivity;
+import com.prospektdev.trainee_stakhovskiy.ui.fragments.DogDetailsFragment;
 import com.prospektdev.trainee_stakhovskiy.utils.GlideApp;
 import com.prospektdev.trainee_stakhovskiy.utils.ShareUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class DogsAdapter extends RecyclerView.Adapter<DogsAdapter.Holder> {
+public class DogsAdapter extends RecyclerView.Adapter<DogsAdapter.Holder> implements Filterable {
 
     private Context context;
+
     private List<LDog> dogs;
+    private List<LDog> originalDogs;
 
     public DogsAdapter(Context context, List<LDog> dogs) {
         this.context = context;
         this.dogs = dogs;
+        this.originalDogs = dogs;
     }
 
     @NonNull
@@ -46,6 +53,48 @@ public class DogsAdapter extends RecyclerView.Adapter<DogsAdapter.Holder> {
     @Override
     public int getItemCount() {
         return dogs.size();
+    }
+
+    public boolean isEmpty() {
+        return originalDogs.isEmpty();
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @SuppressWarnings("unchecked")
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                dogs = (List<LDog>) results.values;
+                DogsAdapter.this.notifyDataSetChanged();
+            }
+
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                List<LDog> filteredResults;
+                if (constraint.length() == 0)
+                    filteredResults = originalDogs;
+                else
+                    filteredResults = getFilteredResults(constraint.toString().toLowerCase());
+
+                FilterResults results = new FilterResults();
+                results.values = filteredResults;
+
+                return results;
+            }
+        };
+    }
+
+    private List<LDog> getFilteredResults(String constraint) {
+        List<LDog> results = new ArrayList<>();
+
+        for (LDog dog : originalDogs) {
+            String title = dog.getTitle();
+            if (title.toLowerCase().contains(constraint.toLowerCase())) {
+                results.add(dog);
+            }
+        }
+        return results;
     }
 
     class Holder extends RecyclerView.ViewHolder {
@@ -67,7 +116,8 @@ public class DogsAdapter extends RecyclerView.Adapter<DogsAdapter.Holder> {
             GlideApp.with(context)
                     .load(url)
                     .centerCrop()
-                    .placeholder(R.drawable.progress_animation)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .placeholder(R.color.colorBlue)
                     .into(ivDogImage);
 
             ivDogImage.setOnClickListener(new View.OnClickListener() {
@@ -76,9 +126,6 @@ public class DogsAdapter extends RecyclerView.Adapter<DogsAdapter.Holder> {
                     showDetails(context, dog);
                 }
             });
-
-            if (dog.getTitle() == null)
-                dog.setTitle(getTitle(url));
 
             tvDogTitle.setText(dog.getTitle());
             ibShare.setOnClickListener(new View.OnClickListener() {
@@ -90,20 +137,9 @@ public class DogsAdapter extends RecyclerView.Adapter<DogsAdapter.Holder> {
             });
         }
 
-        private String getTitle(String url) {
-            String title = "Empty Dog";
-            try {
-                String[] urlParts = url.split("/");
-                title = urlParts[urlParts.length - 2];
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return title.substring(0, 1).toUpperCase() + title.substring(1);
-        }
-
         private void showDetails(Context context, LDog dog) {
-            Intent details = new Intent(context, ItemDetailsActivity.class);
-            details.putExtra(ItemDetailsFragment.EXTRA_DOG, dog);
+            Intent details = new Intent(context, DogDetailsActivity.class);
+            details.putExtra(DogDetailsFragment.EXTRA_DOG, dog);
             context.startActivity(details);
         }
     }
